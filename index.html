@@ -1,1035 +1,1202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaif Hashmi - Full-Stack Developer Portfolio</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #00d4ff;
-            --secondary-color: #0a0e27;
-            --text-color: #e0e0e0;
-            --text-dark: #1a1a1a;
-            --accent-color: #ff006e;
-            --card-bg: #1a2847;
-            --border-color: #2d3e5f;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0a0e27 0%, #1a1a3e 100%);
-            color: var(--text-color);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Navigation Bar */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(10, 14, 39, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            font-weight: 500;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
-
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--primary-color);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 8rem 2rem 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 30% 50%, rgba(0, 212, 255, 0.1), transparent 50%);
-            pointer-events: none;
-        }
-
-        .hero-content {
-            z-index: 2;
-            max-width: 800px;
-            animation: fadeInUp 1s ease;
-        }
-
-        .hero-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 3px solid var(--primary-color);
-            margin: 0 auto 2rem;
-            display: block;
-            object-fit: cover;
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(255, 0, 110, 0.2));
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, var(--primary-color), #00ffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-subtitle {
-            font-size: 1.3rem;
-            color: #b0b0b0;
-            margin-bottom: 2rem;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: linear-gradient(45deg, var(--primary-color), #00ffff);
-            color: var(--text-dark);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-        }
-
-        .btn-secondary:hover {
-            background: var(--primary-color);
-            color: var(--text-dark);
-            transform: translateY(-3px);
-        }
-
-        /* About Section */
-        .about {
-            padding: 5rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: var(--primary-color);
-            text-align: center;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 100px;
-            height: 3px;
-            background: var(--primary-color);
-            margin: 1rem auto 0;
-            border-radius: 2px;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: start;
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-            font-size: 1.05rem;
-            color: #c0c0c0;
-            line-height: 1.8;
-        }
-
-        .about-text strong {
-            color: var(--primary-color);
-        }
-
-        .about-skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .skill-tag {
-            background: var(--card-bg);
-            padding: 0.7rem 1.2rem;
-            border-radius: 30px;
-            border: 1px solid var(--primary-color);
-            color: var(--primary-color);
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .about-highlights {
-            background: rgba(0, 212, 255, 0.05);
-            border-left: 3px solid var(--primary-color);
-            padding: 1.5rem;
-            border-radius: 5px;
-            margin-top: 2rem;
-        }
-
-        .about-highlights h4 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .highlight-item {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
-        }
-
-        .highlight-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .highlight-icon {
-            color: var(--primary-color);
-            font-size: 1.3rem;
-            min-width: 30px;
-            text-align: center;
-        }
-
-        .highlight-text {
-            flex: 1;
-        }
-
-        .highlight-text p {
-            margin: 0;
-            font-size: 0.95rem;
-        }
-
-        /* Projects Section */
-        .projects {
-            padding: 5rem 2rem;
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .projects-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .project-card {
-            background: var(--card-bg);
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary-color);
-            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
-        }
-
-        .project-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(255, 0, 110, 0.2));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-        }
-
-        .project-content {
-            padding: 2rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-content h3 {
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-            font-size: 1.3rem;
-        }
-
-        .project-status {
-            font-size: 0.75rem;
-            color: var(--accent-color);
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-        }
-
-        .project-content p {
-            color: #a0a0a0;
-            margin-bottom: 1rem;
-            flex: 1;
-            font-size: 0.95rem;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 1rem 0;
-        }
-
-        .tech-badge {
-            background: rgba(0, 212, 255, 0.1);
-            color: var(--primary-color);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .project-links {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .project-links a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 20px;
-        }
-
-        .project-links a:hover {
-            background: rgba(0, 212, 255, 0.1);
-            border-color: var(--primary-color);
-            gap: 0.8rem;
-        }
-
-        /* Skills Section */
-        .skills {
-            padding: 5rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .skill-category {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-        }
-
-        .skill-category:hover {
-            border-color: var(--primary-color);
-            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.15);
-        }
-
-        .skill-category h3 {
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-        }
-
-        .skill-list {
-            list-style: none;
-        }
-
-        .skill-list li {
-            padding: 0.5rem 0;
-            color: #b0b0b0;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .skill-list li::before {
-            content: '▸';
-            color: var(--primary-color);
-            font-size: 1.2rem;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 5rem 2rem;
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .contact-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-top: 3rem;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .contact-item {
-            display: flex;
-            gap: 1.5rem;
-            align-items: flex-start;
-        }
-
-        .contact-icon {
-            color: var(--primary-color);
-            font-size: 1.5rem;
-            margin-top: 0.3rem;
-        }
-
-        .contact-item h4 {
-            color: var(--primary-color);
-            margin-bottom: 0.3rem;
-        }
-
-        .contact-item p {
-            color: #b0b0b0;
-        }
-
-        .contact-item a {
-            color: var(--primary-color);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .contact-item a:hover {
-            color: var(--accent-color);
-        }
-
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            margin-bottom: 0.5rem;
-            color: var(--primary-color);
-            font-weight: 600;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 0.8rem;
-            border-radius: 5px;
-            color: var(--text-color);
-            font-family: inherit;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
-
-        /* Footer */
-        footer {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 2rem;
-            text-align: center;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .social-links a {
-            color: var(--primary-color);
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 45px;
-            height: 45px;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 50%;
-        }
-
-        .social-links a:hover {
-            transform: translateY(-5px);
-            color: var(--accent-color);
-            border-color: var(--accent-color);
-            background: rgba(255, 0, 110, 0.1);
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            .nav-links {
-                gap: 1rem;
-                font-size: 0.9rem;
-            }
-
-            .hero {
-                padding: 6rem 1rem 1rem;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-content {
-                grid-template-columns: 1fr;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: rgba(10, 14, 39, 0.98);
-                flex-direction: column;
-                padding: 2rem;
-                gap: 1rem;
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .success-message {
-            color: var(--primary-color);
-            padding: 1rem;
-            background: rgba(0, 212, 255, 0.1);
-            border-radius: 5px;
-            margin-bottom: 1rem;
-            display: none;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kaif Hashmi — Full-Stack Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            surface: '#0d1642',
+            panel: '#111b3b',
+            accent: '#8b5cf6', // Changed to purple/violet
+            accentSoft: '#a78bfa',
+            muted: '#adb5c1',
+            primary: '#7c3aed', // Deep purple
+            secondary: '#a855f7', // Bright purple
+          },
+          boxShadow: {
+            glow: '0 24px 80px rgba(139, 92, 246, 0.16)', // Updated glow color
+          },
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      color-scheme: dark;
+    }
+    * {
+      scroll-behavior: smooth;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.15), transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.12), transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(196, 181, 253, 0.08), transparent 50%),
+        radial-gradient(circle at 90% 90%, rgba(147, 51, 234, 0.1), transparent 40%),
+        linear-gradient(135deg, #0a0a0f 0%, #0f0f23 25%, #0a0a0f 50%, #0f0f23 75%, #0a0a0f 100%);
+      color: #e2e8f0;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(circle at 30% 40%, rgba(139, 92, 246, 0.05), transparent 70%),
+        radial-gradient(circle at 70% 60%, rgba(168, 85, 247, 0.04), transparent 70%),
+        radial-gradient(circle at 50% 90%, rgba(196, 181, 253, 0.03), transparent 60%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    nav {
+      backdrop-filter: saturate(180%) blur(14px);
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 3rem;
+      height: 0.25rem;
+      margin: 0.85rem auto 0;
+      background: linear-gradient(90deg, rgba(139,92,246,0.95), rgba(168, 85, 247, 0.28));
+      border-radius: 999px;
+    }
+    .card-surface {
+      background: linear-gradient(180deg, rgba(17, 27, 59, 0.95), rgba(8, 14, 33, 0.88));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+      backdrop-filter: saturate(180%) blur(14px);
+    }
+
+    .card-surface:hover {
+      background: linear-gradient(180deg, rgba(17, 27, 59, 0.98), rgba(8, 14, 33, 0.92));
+      border-color: rgba(139, 92, 246, 0.2);
+      box-shadow: 0 25px 70px rgba(139, 92, 246, 0.1);
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .form-input {
+      background: rgba(15, 24, 54, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .form-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.16);
+      border-color: rgba(139, 92, 246, 0.55);
+    }
+    .gradient-ring {
+      background: linear-gradient(180deg, rgba(139, 92, 246, 0.18), transparent 65%);
+      border-radius: 999px;
+      padding: 0.15rem;
+    }
+
+    /* Animated gradient backgrounds */
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .animated-gradient {
+      background: linear-gradient(-45deg, rgba(139, 92, 246, 0.1), rgba(168, 85, 247, 0.1), rgba(196, 181, 253, 0.1), rgba(139, 92, 246, 0.1));
+      background-size: 400% 400%;
+      animation: gradient-shift 8s ease infinite;
+    }
+
+    /* Floating particles effect */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(180deg); }
+    }
+
+    .floating-particle {
+      position: absolute;
+      border-radius: 50%;
+      background: linear-gradient(45deg, rgba(139, 92, 246, 0.1), rgba(168, 85, 247, 0.05));
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .floating-particle:nth-child(1) { animation-delay: 0s; }
+    .floating-particle:nth-child(2) { animation-delay: 2s; }
+    .floating-particle:nth-child(3) { animation-delay: 4s; }
+
+    /* Enhanced section backgrounds */
+    .section-bg-enhanced {
+      background:
+        radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.08), transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(168, 85, 247, 0.06), transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(196, 181, 253, 0.04), transparent 50%);
+    }
+  </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <a href="#" class="logo">Kaif Hashmi</a>
-        <button class="menu-toggle" id="menuToggle">
-            <i class="fas fa-bars"></i>
-        </button>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+  <nav id="navigation" class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/95 px-4 py-4 shadow-lg shadow-black/30">
+    <div class="mx-auto flex max-w-7xl items-center justify-between gap-3">
+      <a href="#home" class="text-base font-semibold uppercase tracking-[0.24em] text-purple-300">KH</a>
+      <div class="hidden items-center gap-8 md:flex">
+        <a href="#home" class="nav-link text-sm font-medium text-slate-300 transition hover:text-white">Home</a>
+        <a href="#about" class="nav-link text-sm font-medium text-slate-300 transition hover:text-white">About</a>
+        <a href="#experience" class="nav-link text-sm font-medium text-slate-300 transition hover:text-white">Experience</a>
+        <a href="#projects" class="nav-link text-sm font-medium text-slate-300 transition hover:text-white">Projects</a>
+        <a href="#skills" class="nav-link text-sm font-medium text-slate-300 transition hover:text-white">Skills</a>
+        <a href="#contact" class="nav-link text-sm font-medium text-slate-300 transition hover:text-white">Contact</a>
+      </div>
+      <button id="menuToggle" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 transition hover:bg-slate-900/80 md:hidden">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <div class="hero-img" style="display: flex; align-items: center; justify-content: center; font-size: 80px;">👨‍💻</div>
-            <h1>Kaif Hashmi</h1>
-            <p class="hero-subtitle">Full-Stack Developer | Python | Django | React</p>
-            <p style="color: #a0a0a0; margin-bottom: 2rem;">Building scalable web applications with modern technologies</p>
-            <div class="cta-buttons">
-                <a href="#projects" class="btn btn-primary">View My Work</a>
-                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+  <div id="mobileMenu" class="fixed inset-0 z-40 hidden bg-slate-950/95 px-6 py-8 backdrop-blur-xl md:hidden">
+    <div class="flex items-center justify-between">
+      <span class="font-semibold uppercase tracking-[0.24em] text-purple-300">Menu</span>
+      <button id="closeMenu" class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/5 text-slate-300 transition hover:bg-white/10">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="mt-12 flex flex-col gap-5 text-xl">
+      <a href="#home" class="mobile-link text-slate-100 transition hover:text-purple-300">Home</a>
+      <a href="#about" class="mobile-link text-slate-100 transition hover:text-purple-300">About</a>
+      <a href="#experience" class="mobile-link text-slate-100 transition hover:text-purple-300">Experience</a>
+      <a href="#projects" class="mobile-link text-slate-100 transition hover:text-purple-300">Projects</a>
+      <a href="#skills" class="mobile-link text-slate-100 transition hover:text-purple-300">Skills</a>
+      <a href="#contact" class="mobile-link text-slate-100 transition hover:text-purple-300">Contact</a>
+    </div>
+  </div>
+
+  <main class="overflow-hidden">
+    <section id="home" class="relative overflow-hidden px-4 py-24 sm:py-32">
+      <div class="pointer-events-none absolute right-0 top-12 h-64 w-64 rounded-full bg-gradient-to-br from-purple-500/12 to-violet-500/8 blur-3xl"></div>
+      <div class="pointer-events-none absolute left-0 top-56 h-56 w-56 rounded-full bg-gradient-to-tr from-violet-500/10 to-purple-500/6 blur-3xl"></div>
+      <div class="pointer-events-none absolute top-1/2 left-1/4 w-80 h-80 rounded-full bg-gradient-to-r from-purple-500/6 to-violet-500/4 blur-2xl"></div>
+      <!-- Animated gradient overlay -->
+      <div class="absolute inset-0 animated-gradient opacity-30"></div>
+
+      <!-- Floating particles -->
+      <div class="floating-particle w-4 h-4 top-20 left-20"></div>
+      <div class="floating-particle w-6 h-6 top-40 right-32"></div>
+      <div class="floating-particle w-3 h-3 bottom-32 left-40"></div>
+      <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+        <div class="space-y-8">
+          <p class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-white/5 px-4 py-2 text-sm font-medium text-purple-200 shadow-sm shadow-purple-500/10">Backend Developer · Database Design · Python · Django</p>
+          <div class="space-y-6">
+            <h1 class="text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">Backend Developer specializing in database design and scalable API architecture.</h1>
+            <p class="max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">Passionate backend engineer with expertise in building efficient database schemas, RESTful APIs, and system architecture. Strong foundation in Python, Django, and modern database technologies. Developing full-stack capabilities with frontend fundamentals.</p>
+          </div>
+          <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+            <a href="#projects" class="inline-flex items-center justify-center rounded-full bg-purple-500 px-7 py-3.5 text-sm font-semibold text-slate-950 transition duration-200 hover:-translate-y-0.5 hover:bg-purple-400">View projects</a>
+            <a href="#contact" class="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-7 py-3.5 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:border-purple-300 hover:text-purple-200">Let’s talk</a>
+            <a href="Kaif-Hashmi.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center rounded-full border border-purple-500/30 bg-purple-500/10 px-7 py-3.5 text-sm font-semibold text-purple-200 transition duration-200 hover:-translate-y-0.5 hover:bg-purple-500/20">
+                 <i class="fas fa-external-link-alt mr-2"></i>Resume</a>
+          </div>
+          <div class="grid gap-4 sm:max-w-xl sm:grid-cols-3">
+            <div class="rounded-3xl border border-white/10 bg-white/5 px-5 py-4 text-center">
+              <p class="text-3xl font-semibold text-white">2+</p>
+              <p class="mt-1 text-sm text-slate-400">Years of coding</p>
             </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about" id="about">
-        <h2 class="section-title">About Me</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <p>Hi! I'm <strong>Kaif Hashmi</strong>, a passionate Full-Stack Developer with expertise in <strong>Python, Django, and React</strong>. I recently completed my Bachelor's in Computer Applications (July 2025) and am eager to contribute my technical skills to drive impactful software solutions.</p>
-                
-                <p>I specialize in designing and developing <strong>scalable web applications</strong> with robust backend architectures and intuitive user interfaces. My experience spans across building <strong>e-commerce platforms, marketplace applications, and RESTful APIs</strong> with secure authentication systems.</p>
-                
-                <p>I'm passionate about <strong>database design & optimization, system architecture, and clean code practices</strong>. I love solving complex problems and continuously learning new technologies to stay updated with industry trends.</p>
-
-                <p>When I'm not coding, you'll find me gaming (BGMI enthusiast 🎮), exploring open-source contributions, or diving deep into web development trends and database optimization techniques.</p>
-
-                <div class="about-skills">
-                    <span class="skill-tag">Python</span>
-                    <span class="skill-tag">Django</span>
-                    <span class="skill-tag">FastAPI</span>
-                    <span class="skill-tag">React</span>
-                    <span class="skill-tag">JavaScript</span>
-                    <span class="skill-tag">MySQL</span>
-                    <span class="skill-tag">PostgreSQL</span>
-                    <span class="skill-tag">MongoDB</span>
+            <div class="rounded-3xl border border-white/10 bg-white/5 px-5 py-4 text-center">
+              <p class="text-3xl font-semibold text-white">5</p>
+              <p class="mt-1 text-sm text-slate-400">Projects shipped</p>
+            </div>
+            <div class="rounded-3xl border border-white/10 bg-white/5 px-5 py-4 text-center">
+              <p class="text-3xl font-semibold text-white">100%</p>
+              <p class="mt-1 text-sm text-slate-400">Delivery focus</p>
+            </div>
+          </div>
+          <div class="grid gap-3 sm:max-w-xl sm:grid-cols-2">
+            <div class="rounded-3xl border border-purple-500/20 bg-purple-500/5 px-5 py-4">
+              <div class="flex items-center gap-3">
+                <i class="fas fa-user text-purple-300"></i>
+                <div>
+                  <p class="text-sm text-slate-400">Name</p>
+                  <p class="font-semibold text-white">Kaif Hashmi</p>
                 </div>
+              </div>
             </div>
-
-            <div class="about-text">
-                <div class="about-highlights">
-                    <h4><i class="fas fa-graduation-cap"></i> Education</h4>
-                    <div class="highlight-item">
-                        <div class="highlight-icon"><i class="fas fa-certificate"></i></div>
-                        <div class="highlight-text">
-                            <p><strong>Bachelor of Computer Applications (BCA)</strong><br>Veer Bahadur Singh Purvanchal University, Jaunpur, UP<br><em>July 2022 – July 2025</em></p>
-                        </div>
-                    </div>
+            <div class="rounded-3xl border border-purple-500/20 bg-purple-500/5 px-5 py-4">
+              <div class="flex items-center gap-3">
+                <i class="fas fa-envelope text-purple-300"></i>
+                <div>
+                  <p class="text-sm text-slate-400">Email</p>
+                  <p class="font-semibold text-white">kaifhashmi0922@gmail.com</p>
                 </div>
-
-                <div class="about-highlights" style="margin-top: 1.5rem;">
-                    <h4><i class="fas fa-map-marker-alt"></i> Location & Contact</h4>
-                    <div class="highlight-item">
-                        <div class="highlight-icon"><i class="fas fa-location-dot"></i></div>
-                        <div class="highlight-text">
-                            <p><strong>Noida , Delhi , India</strong></p>
-                        </div>
-                    </div>
-                    <div class="highlight-item">
-                        <div class="highlight-icon"><i class="fas fa-phone"></i></div>
-                        <div class="highlight-text">
-                            <p><strong>Phone:</strong> +91 7379236510</p>
-                        </div>
-                    </div>
-                    <div class="highlight-item">
-                        <div class="highlight-icon"><i class="fas fa-envelope"></i></div>
-                        <div class="highlight-text">
-                            <p><strong>Email:</strong> kaifhashmi0922@gmail.com</p>
-                        </div>
-                    </div>
+              </div>
+            </div>
+            <div class="rounded-3xl border border-purple-500/20 bg-purple-500/5 px-5 py-4">
+              <div class="flex items-center gap-3">
+                <i class="fas fa-phone text-purple-300"></i>
+                <div>
+                  <p class="text-sm text-slate-400">Phone</p>
+                  <p class="font-semibold text-white">+91 7379236510</p>
                 </div>
-
-                <div class="about-highlights" style="margin-top: 1.5rem;">
-                    <h4><i class="fas fa-bullseye"></i> Current Focus</h4>
-                    <div class="highlight-item">
-                        <div class="highlight-icon"><i class="fas fa-rocket"></i></div>
-                        <div class="highlight-text">
-                            <p>Pursuing entry-level positions as Python/Django Developer at leading tech companies (TCS, Microsoft, Google)</p>
-                        </div>
-                    </div>
+              </div>
+            </div>
+            <div class="rounded-3xl border border-purple-500/20 bg-purple-500/5 px-5 py-4">
+              <div class="flex items-center gap-3">
+                <i class="fas fa-code text-purple-300"></i>
+                <div>
+                  <p class="text-sm text-slate-400">LeetCode</p>
+                  <p class="font-semibold text-white">kaifhashmi0922</p>
                 </div>
+              </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section class="projects" id="projects">
-        <div class="projects-container">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="projects-grid">
-                <!-- Project 1 -->
-                <div class="project-card">
-                    <div class="project-image">🛒</div>
-                    <div class="project-content">
-                        <h3>Trolly Mate - E-Commerce Platform</h3>
-                        <p class="project-status">COMPLETED</p>
-                        <p>Full-stack e-commerce platform with separate admin and customer modules serving 100+ concurrent users. Features include product management, real-time inventory tracking, shopping cart, secure checkout, and automated email notifications with PDF invoice generation.</p>
-                        <div class="project-tech">
-                            <span class="tech-badge">Python</span>
-                            <span class="tech-badge">Django</span>
-                            <span class="tech-badge">MySQL</span>
-                            <span class="tech-badge">Bootstrap</span>
-                            <span class="tech-badge">JavaScript</span>
-                            <span class="tech-badge">REST API</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/KaifHashmi0922/Trolly-Mate-Ecommarce-Plateform-" target="_blank" rel="noopener noreferrer">
-                                <i class="fab fa-github"></i> View Code
-                            </a>
-                            <a href="#" target="_blank" rel="noopener noreferrer">
-                                <i class="fas fa-globe"></i> Live Demo
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 2 -->
-                <div class="project-card">
-                    <div class="project-image">💼</div>
-                    <div class="project-content">
-                        <h3>Freelancer Marketplace</h3>
-                        <p class="project-status">ONGOING</p>
-                        <p>Full-stack freelance marketplace connecting clients with freelancers for secure project collaboration. Features include project bidding system, role-based access control, real-time chat, workflow management, milestone-based payments, and automated invoice generation.</p>
-                        <div class="project-tech">
-                            <span class="tech-badge">Python</span>
-                            <span class="tech-badge">Django</span>
-                            <span class="tech-badge">FastAPI</span>
-                            <span class="tech-badge">React</span>
-                            <span class="tech-badge">MongoDB</span>
-                            <span class="tech-badge">MySQL</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/KaifHashmi0922/Freelancer-Plateform" target="_blank" rel="noopener noreferrer">
-                                <i class="fab fa-github"></i> View Code
-                            </a>
-                            <a href="#" target="_blank" rel="noopener noreferrer">
-                                <i class="fas fa-globe"></i> Live Demo
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div class="project-card">
-                    <div class="project-image">📊</div>
-                    <div class="project-content">
-                        <h3>Data Analytics Dashboard</h3>
-                        <p class="project-status">ONGOING</p>
-                        <p>Interactive analytics dashboard for visualizing product stock and company data with real-time insights. Built with Python data science libraries for comprehensive data analysis and visualization capabilities.</p>
-                        <div class="project-tech">
-                            <span class="tech-badge">Python</span>
-                            <span class="tech-badge">Pandas</span>
-                            <span class="tech-badge">Matplotlib</span>
-                            <span class="tech-badge">Data Analysis</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/KaifHashmi0922/Data-Analytics-Dashboard-" target="_blank" rel="noopener noreferrer">
-                                <i class="fab fa-github"></i> View Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section class="skills" id="skills">
-        <h2 class="section-title">Technical Skills</h2>
-        <div class="skills-grid">
-            <div class="skill-category">
-                <h3><i class="fas fa-server"></i> Backend</h3>
-                <ul class="skill-list">
-                    <li>Python</li>
-                    <li>Django Framework</li>
-                    <li>FastAPI</li>
-                    <li>REST API Development</li>
-                    <li>Authentication & Authorization</li>
-                    <li>Database Optimization</li>
-                </ul>
-            </div>
-            <div class="skill-category">
-                <h3><i class="fas fa-paint-brush"></i> Frontend</h3>
-                <ul class="skill-list">
-                    <li>React.js</li>
-                    <li>JavaScript (ES6+)</li>
-                    <li>HTML & CSS</li>
-                    <li>Bootstrap</li>
-                    <li>Responsive Design</li>
-                    <li>DOM Manipulation</li>
-                </ul>
-            </div>
-            <div class="skill-category">
-                <h3><i class="fas fa-database"></i> Databases</h3>
-                <ul class="skill-list">
-                    <li>MySQL</li>
-                    <li>PostgreSQL</li>
-                    <li>MongoDB</li>
-                    <li>Database Design</li>
-                    <li>SQL Optimization</li>
-                    <li>ORM (Django ORM)</li>
-                </ul>
-            </div>
-            <div class="skill-category">
-                <h3><i class="fas fa-tools"></i> Tools & Platforms</h3>
-                <ul class="skill-list">
-                    <li>Git & GitHub</li>
-                    <li>Docker (Basic)</li>
-                    <li>AWS (Basic)</li>
-                    <li>Postman</li>
-                    <li>VS Code</li>
-                    <li>Linux</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="contact-container">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-envelope contact-icon"></i>
-                        <div>
-                            <h4>Email</h4>
-                            <p><a href="mailto:kaifhashmi0922@gmail.com">kaifhashmi0922@gmail.com</a></p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone contact-icon"></i>
-                        <div>
-                            <h4>Phone</h4>
-                            <p><a href="tel:+917379236510">+91 7379236510</a></p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt contact-icon"></i>
-                        <div>
-                            <h4>Location</h4>
-                            <p>Noida , Delhi , India</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fab fa-github contact-icon"></i>
-                        <div>
-                            <h4>GitHub</h4>
-                            <p><a href="https://github.com/KaifHashmi0922" target="_blank" rel="noopener noreferrer">github.com/KaifHashmi0922</a></p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fab fa-linkedin contact-icon"></i>
-                        <div>
-                            <h4>LinkedIn</h4>
-                            <p><a href="http://linkedin.com/in/kaif-hashmi-045a8333a" target="_blank" rel="noopener noreferrer">Kaif Hashmi</a></p>
-                        </div>
-                    </div>
-                </div>
-                <form class="contact-form" id="contactForm">
-                    <div class="success-message" id="successMessage">
-                        <i class="fas fa-check-circle"></i> Thank you! Your message has been sent successfully. I'll get back to you soon!
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="social-links">
-            <a href="https://github.com/KaifHashmi0922" target="_blank" rel="noopener noreferrer" title="GitHub">
-                <i class="fab fa-github"></i>
+          </div>
+          <!-- <div class="flex flex-wrap gap-3 sm:max-w-xl">
+            <a href="https://github.com/KaifHashmi0922" target="_blank"  class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300 transition hover:bg-purple-500/10 hover:text-purple-200">
+              <i class="fab fa-github"></i> GitHub
             </a>
-            <a href="http://linkedin.com/in/kaif-hashmi-045a8333a" target="_blank" rel="noopener noreferrer" title="LinkedIn">
-                <i class="fab fa-linkedin"></i>
+            <a href="http://linkedin.com/in/kaif-hashmi-045a8333a" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300 transition hover:bg-purple-500/10 hover:text-purple-200">
+              <i class="fab fa-linkedin"></i> LinkedIn
             </a>
-            <a href="mailto:kaifhashmi0922@gmail.com" title="Email">
-                <i class="fas fa-envelope"></i>
+            <a href="https://leetcode.com/u/Hs_KaiF/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300 transition hover:bg-purple-500/10 hover:text-purple-200">
+              <i class="fas fa-code"></i> LeetCode
             </a>
+          </div> -->
         </div>
-        <p>&copy; 2025 Kaif Hashmi. All rights reserved. | Full-Stack Developer</p>
-    </footer>
 
-    <script>
-        // Mobile menu toggle
-        const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
+        <div class="relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-b from-slate-950/95 to-slate-900/90 p-6 shadow-glow">
+          <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-purple-400 to-sky-500"></div>
+          <div class="relative flex h-full flex-col justify-between gap-6 rounded-[1.5rem] bg-slate-950/80 p-8 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04)]">
+            <div class="flex items-center gap-4">
+              <div class="flex h-16 w-16 items-center justify-center rounded-3xl bg-gradient-to-br from-purple-500/15 to-sky-500/10 text-2xl text-purple-200">KH</div>
+              <div>
+                <p class="text-sm uppercase tracking-[0.2em] text-purple-300">Professional profile</p>
+                <h2 class="mt-2 text-2xl font-semibold text-white">Backend engineering excellence.</h2>
+              </div>
+            </div>
+            <div class="grid gap-4 py-2 text-sm leading-7 text-slate-300">
+              <p>Building robust APIs with Django REST Framework, designing optimized database schemas, and implementing secure authentication systems for reliable backend services.</p>
+              <p>Specializing in database design, query optimization, and system architecture to handle scalable applications efficiently.</p>
+              <p>Developing full-stack capabilities with frontend fundamentals in React while maintaining core expertise in backend systems and database technologies.</p>
+            </div>
+            <div class="grid gap-3 rounded-[1.5rem] border border-purple-500/20 bg-slate-950/70 p-4">
+              <div class="flex items-center justify-between text-sm text-slate-400"><span>Database design</span><span class="font-semibold text-white">Advanced</span></div>
+              <div class="h-2 overflow-hidden rounded-full bg-white/10"><div class="h-full w-[88%] rounded-full bg-purple-500"></div></div>
+              <div class="flex items-center justify-between text-sm text-slate-400"><span>Backend APIs</span><span class="font-semibold text-white">Advanced</span></div>
+              <div class="h-2 overflow-hidden rounded-full bg-white/10"><div class="h-full w-[85%] rounded-full bg-purple-500"></div></div>
+              <div class="flex items-center justify-between text-sm text-slate-400"><span>Frontend basics</span><span class="font-semibold text-white">Intermediate</span></div>
+              <div class="h-2 overflow-hidden rounded-full bg-white/10"><div class="h-full w-[65%] rounded-full bg-purple-500"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
+    <section id="about" class="px-4 py-24 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden section-bg-enhanced">
+      <!-- Enhanced background effects -->
+      <div class="absolute inset-0 bg-gradient-to-r from-purple-500/8 via-transparent to-violet-500/8"></div>
+      <div class="absolute top-0 right-0 w-96 h-96 rounded-full bg-gradient-to-br from-purple-500/10 to-violet-500/5 blur-3xl"></div>
+      <div class="absolute bottom-0 left-0 w-96 h-96 rounded-full bg-gradient-to-tr from-violet-500/8 to-purple-500/5 blur-3xl"></div>
+      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-r from-purple-500/3 via-violet-500/2 to-purple-500/3 blur-3xl"></div>
 
-        // Close menu when link is clicked
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
-        });
+      <div class="mx-auto max-w-7xl relative">
+        <div class="text-center mb-16">
+          <p class="text-sm uppercase tracking-[0.24em] text-purple-300">About</p>
+          <h2 class="section-title text-3xl font-bold text-white sm:text-4xl lg:text-5xl bg-gradient-to-r from-white via-purple-100 to-purple-200 bg-clip-text text-transparent">Purposeful software through modern engineering.</h2>
+          <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-300">I build business-grade systems that balance performance, reliability, and polished user experiences. My work is centered on delivering code that is maintainable, efficient, and aligned with product goals.</p>
+        </div>
+        <div class="mt-16 grid gap-8 lg:grid-cols-[1.35fr_0.85fr]">
+          <div class="space-y-6 reveal rounded-[2rem] border border-white/10 p-8 card-surface">
+            <div>
+              <h3 class="text-2xl font-semibold text-white">About me</h3>
+              <p class="mt-4 text-slate-300 leading-7"> Backend Developer and  Full Stack Developer  . And Database Specialist with strong foundation in Python, Django, and SQL/NoSQL databases. Focused on building scalable APIs, designing efficient database schemas, and architecting backend systems. Currently expanding full-stack capabilities with frontend fundamentals. Passionate about clean code, system optimization, and solving complex database challenges.</p>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="rounded-3xl bg-slate-950/80 p-5 text-slate-200 shadow-[0_24px_60px_rgba(0,0,0,0.18)]">
+                <p class="text-sm uppercase tracking-[0.2em] text-purple-300">Focus</p>
+                <p class="mt-3 text-base leading-7">Designing optimized database schemas, building RESTful APIs with Django, implementing authentication/authorization, and creating scalable backend architectures.</p>
+              </div>
+              <div class="rounded-3xl bg-slate-950/80 p-5 text-slate-200 shadow-[0_24px_60px_rgba(0,0,0,0.18)]">
+                <p class="text-sm uppercase tracking-[0.2em] text-purple-300">Approach</p>
+                <p class="mt-3 text-base leading-7">Writing efficient, maintainable backend code with proper database optimization, solid API design patterns, and continuous learning in system architecture.</p>
+              </div>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="rounded-3xl border border-purple-500/10 bg-white/5 p-5">
+                <p class="text-sm text-slate-400">Education</p>
+                <p class="mt-3 text-white font-semibold">BCA · 2025</p>
+                <p class="mt-1 text-sm text-slate-400">Veer Bahadur Singh Purvanchal University</p>
+              </div>
+              <div class="rounded-3xl border border-purple-500/10 bg-white/5 p-5">
+                <p class="text-sm text-slate-400">Current path</p>
+                <p class="mt-3 text-white font-semibold">MCA in Data Science</p>
+                <p class="mt-1 text-sm text-slate-400">Lovely Professional University</p>
+              </div>
+            </div>
+          </div>
+          <div class="space-y-6">
+            <div class="reveal rounded-[2rem] border border-purple-500/10 bg-slate-950/95 p-8 text-white shadow-glow">
+              <div class="flex items-center justify-between gap-4">
+                <div>
+                  <p class="text-sm uppercase tracking-[0.2em] text-purple-300">Professional summary</p>
+                  <h3 class="mt-4 text-2xl font-semibold">Reliable backend systems, thoughtful frontend experiences.</h3>
+                </div>
+                <span class="rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm text-purple-200">Available for hire</span>
+              </div>
+              <ul class="mt-8 space-y-4 text-slate-300">
+                <li class="flex items-start gap-3"><span class="mt-1 inline-flex h-2.5 w-2.5 rounded-full bg-purple-400"></span> Architected and delivered full-stack applications from database design to deployment, with focus on API reliability and scalability.</li>
+                <li class="flex items-start gap-3"><span class="mt-1 inline-flex h-2.5 w-2.5 rounded-full bg-purple-400"></span> Built responsive dashboards with real-time data visualization, implemented JWT authentication, and automated backend processes.</li>
+                <li class="flex items-start gap-3"><span class="mt-1 inline-flex h-2.5 w-2.5 rounded-full bg-purple-400"></span> Collaborated with stakeholders to deliver stable, production-ready solutions with comprehensive testing and documentation.</li>
+              </ul>
+            </div>
+            <div class="grid gap-4">
+              <div class="rounded-[1.75rem] border border-white/10 bg-slate-950/90 p-6 text-slate-200">
+                <div class="flex items-center gap-3 text-purple-300"><i class="fas fa-location-dot"></i><span class="font-semibold">Noida, Delhi, India</span></div>
+                <p class="mt-3 text-slate-400">Available for remote and hybrid opportunities with innovative teams building scalable web applications and digital products.</p>
+              </div>
+              <div class="rounded-[1.75rem] border border-white/10 bg-slate-950/90 p-6 text-slate-200">
+                <div class="flex items-center gap-3 text-purple-300"><i class="fas fa-briefcase"></i><span class="font-semibold">Hiring goals</span></div>
+                <p class="mt-3 text-slate-400">Actively seeking positions in backend engineering, full-stack development, and building data-driven solutions with modern tech stacks.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        // Contact form handling
-        const contactForm = document.getElementById('contactForm');
-        const successMessage = document.getElementById('successMessage');
+    <section id="experience" class="px-4 py-24 bg-gradient-to-b from-slate-950/60 via-slate-900/70 to-slate-950/80 relative overflow-hidden section-bg-enhanced">
+      <!-- Enhanced background effects -->
+      <div class="absolute inset-0 bg-gradient-to-br from-purple-500/4 via-transparent to-violet-500/4"></div>
+      <div class="absolute top-20 left-20 w-72 h-72 rounded-full bg-gradient-to-r from-purple-500/8 to-violet-500/6 blur-3xl"></div>
+      <div class="absolute bottom-20 right-20 w-80 h-80 rounded-full bg-gradient-to-l from-violet-500/6 to-purple-500/8 blur-3xl"></div>
+      <div class="absolute top-1/3 right-1/4 w-64 h-64 rounded-full bg-gradient-to-br from-purple-500/5 to-violet-500/4 blur-2xl"></div>
+      <div class="mx-auto max-w-7xl">
+        <div class="text-center mb-16">
+          <p class="text-sm uppercase tracking-[0.24em] text-purple-300">Experience</p>
+          <h2 class="section-title text-3xl font-bold text-white sm:text-4xl lg:text-5xl bg-gradient-to-r from-white via-purple-100 to-purple-200 bg-clip-text text-transparent">Professional journey.</h2>
+          <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-300">Building scalable solutions and delivering impactful products across various domains and technologies with a focus on innovation and excellence.</p>
+        </div>
+        <div class="relative">
+          <!-- Timeline line -->
+          <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-500 via-purple-400 to-transparent hidden lg:block"></div>
 
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
+          <div class="space-y-12">
+
             
-            // Show success message
-            successMessage.style.display = 'block';
-            
-            // Reset form
-            contactForm.reset();
-            
-            // Hide message after 5 seconds
-            setTimeout(() => {
-                successMessage.style.display = 'none';
-            }, 5000);
-        });
+            <div class="reveal relative flex flex-col lg:flex-row gap-8 lg:gap-12">
+              <!-- Timeline dot -->
+              <div class="absolute left-6 w-4 h-4 bg-purple-500 rounded-full border-4 border-slate-950/95 hidden lg:block"></div>
 
-        // Smooth scroll animation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
+              <div class="flex-1 lg:ml-20">
+                <div class="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-slate-950/95 to-slate-900/90 p-8 shadow-2xl transition-all duration-500 hover:border-purple-500/30 hover:shadow-glow hover:-translate-y-2">
+                  <!-- Background gradient effect -->
+                  <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-        // Add scroll effect to navigation
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.style.background = 'rgba(10, 14, 39, 0.98)';
-            } else {
-                nav.style.background = 'rgba(10, 14, 39, 0.95)';
-            }
-        });
-    </script>
+                  <div class="relative flex flex-col lg:flex-row lg:items-start gap-6">
+                    <div class="flex-shrink-0">
+                      <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500/20 to-purple-400/10 text-purple-300 shadow-lg">
+                        <i class="fas fa-server text-2xl"></i>
+                      </div>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+                        <div>
+                          <h3 class="text-2xl font-bold text-white group-hover:text-purple-100 transition-colors">Full Stack Developer</h3>
+                          <p class="text-purple-300 font-medium text-lg">Trolly Mate Site  ( Collage Projects ) </p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-2 text-sm font-semibold text-purple-200">
+                            <i class="fas fa-code text-xs"></i>
+                            R&D
+                          </span>
+                        </div>
+                      </div>
+                      <p class="text-slate-300 leading-8 text-lg mb-6">Developed comprehensive e-commerce platform from ground up with complete user authentication, inventory management, and payment integration. Designed and optimized database schema for product catalog, orders, and analytics. Built intuitive admin dashboard with real-time sales metrics and user management capabilities.</p>
+                      <div class="flex flex-wrap gap-3">
+                          <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fas fa-paint-brush text-xs"></i> GUI Design
+                        </span>
+                        <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fab fa-python text-xs"></i> Python
+                        </span>
+                        <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fas fa-code text-xs"></i> Django
+                        </span>
+                        <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fas fa-database text-xs"></i> MySQL
+                        </span>
+                        <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fab fa-bootstrap text-xs"></i> Bootstrap
+                        </span>
+                        <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fab fa-js-square text-xs"></i> JavaScript
+                        </span>
+                        <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fas fa-square-root-alt text-xs"></i> Numpy
+                        </span>
+                        <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fas fa-table text-xs"></i> Pandas
+                        </span>
+                        <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fas fa-chart-line text-xs"></i> Analytics
+                        </span>
+                       <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fas fa-lock text-xs"></i> Authentication
+                        </span><span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fas fa-shield-alt text-xs"></i> Authorization
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            
+            <div class="reveal relative flex flex-col lg:flex-row gap-8 lg:gap-12">
+              <!-- Timeline dot -->
+              <div class="absolute left-6 w-4 h-4 bg-purple-500 rounded-full border-4 border-slate-950/95 hidden lg:block"></div>
+
+              <div class="flex-1 lg:ml-20">
+                <div class="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-slate-950/95 to-slate-900/90 p-8 shadow-2xl transition-all duration-500 hover:border-purple-500/30 hover:shadow-glow hover:-translate-y-2">
+                  <!-- Background gradient effect -->
+                  <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                  <div class="relative flex flex-col lg:flex-row lg:items-start gap-6">
+                    <div class="flex-shrink-0">
+                      <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500/20 to-purple-400/10 text-purple-300 shadow-lg">
+                        <i class="fas fa-briefcase text-2xl"></i>
+                      </div>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+                        <div>
+                          <h3 class="text-2xl font-bold text-white group-hover:text-purple-100 transition-colors">Full-Stack Developer</h3>
+                          <p class="text-purple-300 font-medium text-lg">Bank Application ( Internship ) </p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-2 text-sm font-semibold text-purple-200">
+                            <i class="fas fa-star text-xs"></i>
+                            Active
+                          </span>
+                        </div>
+                      </div>
+                      <p class="text-slate-300 leading-8 text-lg mb-6">Engineered secure transaction-processing system with account management and comprehensive audit trails. Implemented user authentication with role-based access control. Designed database normalization for financial transactions with support for multiple account types and transaction history tracking.</p>
+                      <div class="flex flex-wrap gap-3">
+                        <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fab fa-python text-xs"></i> Python
+                        </span>
+                        <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fas fa-code text-xs"></i> MySQL
+                        </span>
+                         <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fas fa-check-circle text-xs"></i> Pydantic
+                        </span>
+                         <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fas fa-lock text-xs"></i> Authentication
+                        </span><span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fas fa-shield-alt text-xs"></i> Authorization
+                        </span>
+                       
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="reveal relative flex flex-col lg:flex-row gap-8 lg:gap-12">
+              <!-- Timeline dot -->
+              <div class="absolute left-6 w-4 h-4 bg-purple-500 rounded-full border-4 border-slate-950/95 hidden lg:block"></div>
+
+              <div class="flex-1 lg:ml-20">
+                <div class="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-slate-950/95 to-slate-900/90 p-8 shadow-2xl transition-all duration-500 hover:border-purple-500/30 hover:shadow-glow hover:-translate-y-2">
+                  <!-- Background gradient effect -->
+                  <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                  <div class="relative flex flex-col lg:flex-row lg:items-start gap-6">
+                    <div class="flex-shrink-0">
+                      <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500/20 to-purple-400/10 text-purple-300 shadow-lg">
+                        <i class="fas fa-briefcase text-2xl"></i>
+                      </div>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+                        <div>
+                          <h3 class="text-2xl font-bold text-white group-hover:text-purple-100 transition-colors">Full-Stack Developer</h3>
+                          <p class="text-purple-300 font-medium text-lg">Freelance MarketPlace Plateform ( Team Project )· 2025 - Present</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-2 text-sm font-semibold text-purple-200">
+                            <i class="fas fa-star text-xs"></i>
+                            Active
+                          </span>
+                        </div>
+                      </div>
+                      <p class="text-slate-300 leading-8 text-lg mb-6">Building a modern marketplace platform connecting freelancers and clients. Implemented real-time bidding system, milestone-based project tracking, integrated messaging for collaboration, and comprehensive dashboard for managing opportunities and earnings.</p>
+                      <div class="flex flex-wrap gap-3">
+                         <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fab fa-react text-xs"></i> React
+                        </span>
+                        <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fab fa-python text-xs"></i> Python
+                        </span>
+                         <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fas fa-rocket text-xs"></i> FastAPI
+                        </span>
+                       
+                        <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fas fa-database text-xs"></i> MySQL
+                        </span>
+                        <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fas fa-server text-xs"></i> NoSQL
+                        </span>
+                        <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fas fa-key text-xs"></i> JWT
+                        </span>
+                        <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fas fa-chart-bar text-xs"></i> Data Analytics
+                        </span>
+                        <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fas fa-chart-line text-xs"></i> Data Visualization
+                        </span>
+                        <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fas fa-lock text-xs"></i> Authentication
+                        </span><span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fas fa-shield-alt text-xs"></i> Authorization
+                        </span>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="reveal relative flex flex-col lg:flex-row gap-8 lg:gap-12">
+              <!-- Timeline dot -->
+              <div class="absolute left-6 w-4 h-4 bg-purple-500 rounded-full border-4 border-slate-950/95 hidden lg:block"></div>
+
+              <div class="flex-1 lg:ml-20">
+                <div class="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-slate-950/95 to-slate-900/90 p-8 shadow-2xl transition-all duration-500 hover:border-purple-500/30 hover:shadow-glow hover:-translate-y-2">
+                  <!-- Background gradient effect -->
+                  <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                  <div class="relative flex flex-col lg:flex-row lg:items-start gap-6">
+                    <div class="flex-shrink-0">
+                      <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500/20 to-purple-400/10 text-purple-300 shadow-lg">
+                        <i class="fas fa-graduation-cap text-2xl"></i>
+                      </div>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+                        <div>
+                          <h3 class="text-2xl font-bold text-white group-hover:text-purple-100 transition-colors">Data Science Student</h3>
+                          <p class="text-purple-300 font-medium text-lg">Lovely Professional University · 2025 - Present</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-2 text-sm font-semibold text-purple-200">
+                            <i class="fas fa-university text-xs"></i>
+                            Current
+                          </span>
+                        </div>
+                      </div>
+                      <p class="text-slate-300 leading-8 text-lg mb-6">Pursuing advanced data science education with focus on machine learning algorithms, statistical analysis, and predictive modeling. Applying theoretical knowledge to real-world datasets, building classification and regression models, and creating data visualizations for insights.</p>
+                      <div class="flex flex-wrap gap-3">
+                        <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fab fa-python text-xs"></i> Python
+                        </span>
+                        <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fas fa-table text-xs"></i> Pandas
+                        </span>
+                        <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fas fa-square-root-alt text-xs"></i> NumPy
+                        </span>
+                        <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fas fa-chart-bar text-xs"></i> Matplotlib
+                        </span>
+                        <span class="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-200 hover:bg-purple-500/20 transition-colors">
+                          <i class="fas fa-brain text-xs"></i> Scikit-learn
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-16">
+          <div class="text-center mb-12">
+            <h3 class="text-2xl font-semibold text-white">Certifications & Achievements</h3>
+            <p class="mt-4 text-slate-400">Continuous learning and professional development milestones.</p>
+          </div>
+          <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div class="reveal rounded-[2rem] border border-white/10 bg-slate-950/95 p-6 text-center">
+              <div class="flex h-16 w-16 items-center justify-center rounded-3xl bg-purple-500/10 text-purple-300 mx-auto mb-4">
+                <i class="fas fa-certificate text-2xl"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-white mb-2">Python Programming</h4>
+              <p class="text-sm text-slate-400">Proficient in Python with expertise in OOP, data structures, algorithms, and functional programming paradigms</p>
+              <p class="text-xs text-purple-300 mt-2">Self-Learning</p>
+            </div>
+
+            <div class="reveal rounded-[2rem] border border-white/10 bg-slate-950/95 p-6 text-center">
+              <div class="flex h-16 w-16 items-center justify-center rounded-3xl bg-purple-500/10 text-purple-300 mx-auto mb-4">
+                <i class="fas fa-database text-2xl"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-white mb-2">Database Design</h4>
+              <p class="text-sm text-slate-400">Expert in relational (MySQL, PostgreSQL) and NoSQL (MongoDB) databases with query optimization and indexing strategies</p>
+              <p class="text-xs text-purple-300 mt-2">Practical Experience</p>
+            </div>
+
+            <div class="reveal rounded-[2rem] border border-white/10 bg-slate-950/95 p-6 text-center">
+              <div class="flex h-16 w-16 items-center justify-center rounded-3xl bg-purple-500/10 text-purple-300 mx-auto mb-4">
+                <i class="fab fa-java text-2xl"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-white mb-2">Java Development</h4>
+              <p class="text-sm text-slate-400">Object-oriented design patterns, multithreading, collections, and enterprise application development fundamentals</p>
+              <p class="text-xs text-purple-300 mt-2">Self-Taught</p>
+            </div>
+
+            <div class="reveal rounded-[2rem] border border-white/10 bg-slate-950/95 p-6 text-center">
+              <div class="flex h-16 w-16 items-center justify-center rounded-3xl bg-purple-500/10 text-purple-300 mx-auto mb-4">
+                <i class="fas fa-code text-2xl"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-white mb-2">C/C++ Programming</h4>
+              <p class="text-sm text-slate-400">Low-level programming, memory management, pointers, and building performance-critical algorithms</p>
+              <p class="text-xs text-purple-300 mt-2">Academic Foundation</p>
+            </div>
+
+            <!-- <div class="reveal rounded-[2rem] border border-white/10 bg-slate-950/95 p-6 text-center">
+              <div class="flex h-16 w-16 items-center justify-center rounded-3xl bg-purple-500/10 text-purple-300 mx-auto mb-4">
+                <i class="fas fa-cloud text-2xl"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-white mb-2">Cloud Computing</h4>
+              <p class="text-sm text-slate-400">AWS services and cloud architecture fundamentals</p>
+              <p class="text-xs text-purple-300 mt-2">AWS Certified</p>
+            </div> -->
+
+            <div class="reveal rounded-[2rem] border border-white/10 bg-slate-950/95 p-6 text-center">
+              <div class="flex h-16 w-16 items-center justify-center rounded-3xl bg-purple-500/10 text-purple-300 mx-auto mb-4">
+                <i class="fas fa-code-branch text-2xl"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-white mb-2">Version Control</h4>
+              <p class="text-sm text-slate-400">Git proficiency including branching strategies, merge management, and collaborative development workflows</p>
+              <p class="text-xs text-purple-300 mt-2">GitHub Expert</p>
+            </div>
+
+            <div class="reveal rounded-[2rem] border border-white/10 bg-slate-950/95 p-6 text-center">
+              <div class="flex h-16 w-16 items-center justify-center rounded-3xl bg-purple-500/10 text-purple-300 mx-auto mb-4">
+                <i class="fas fa-server text-2xl"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-white mb-2">RESTful API Development</h4>
+              <p class="text-sm text-slate-400">Designing clean, scalable APIs with proper authentication, error handling, and comprehensive API documentation</p>
+              <p class="text-xs text-purple-300 mt-2">Production Experience</p>
+            </div>
+
+            <div class="reveal rounded-[2rem] border border-white/10 bg-slate-950/95 p-6 text-center">
+              <div class="flex h-16 w-16 items-center justify-center rounded-3xl bg-purple-500/10 text-purple-300 mx-auto mb-4">
+                <i class="fas fa-linux text-2xl"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-white mb-2">Linux Systems</h4>
+              <p class="text-sm text-slate-400">Linux administration, command-line tools, shell scripting, and server configuration for web applications</p>
+              <p class="text-xs text-purple-300 mt-2">Daily Usage</p>
+            </div>
+
+            <div class="reveal rounded-[2rem] border border-white/10 bg-slate-950/95 p-6 text-center">
+              <div class="flex h-16 w-16 items-center justify-center rounded-3xl bg-purple-500/10 text-purple-300 mx-auto mb-4">
+                <i class="fas fa-chart-line text-2xl"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-white mb-2">Data Analytics</h4>
+              <p class="text-sm text-slate-400">Pandas, NumPy, Matplotlib for data manipulation, analysis, and creating insightful visualizations from complex datasets</p>
+              <p class="text-xs text-purple-300 mt-2">Portfolio Project</p>
+            </div>
+
+            <div class="reveal rounded-[2rem] border border-white/10 bg-slate-950/95 p-6 text-center">
+              <div class="flex h-16 w-16 items-center justify-center rounded-3xl bg-purple-500/10 text-purple-300 mx-auto mb-4">
+                <i class="fas fa-rocket text-2xl"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-white mb-2">Full-Stack Development</h4>
+              <p class="text-sm text-slate-400">Complete web application development from database architecture to frontend deployment with user-centric design</p>
+              <p class="text-xs text-purple-300 mt-2">6+ Projects</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="bg-slate-950/60 px-4 py-24">
+      <div class="mx-auto max-w-7xl">
+        <div class="text-center">
+          <p class="text-sm uppercase tracking-[0.24em] text-purple-300">Projects</p>
+          <h2 class="section-title text-3xl font-semibold text-white sm:text-4xl">Production-ready applications.</h2>
+          <p class="mx-auto mt-5 max-w-2xl text-base leading-8 text-slate-400">A curated selection of full-stack projects demonstrating technical expertise, clean architecture, and practical problem-solving across diverse domains and use cases.</p>
+        </div>
+        </div>
+        <div class="mt-12 grid gap-6 lg:grid-cols-3">
+          <article class="reveal rounded-[2rem] border border-white/10 bg-slate-950/95 p-6 transition duration-300 hover:-translate-y-1 hover:border-purple-500/30 hover:shadow-glow">
+            <div class="flex items-center justify-between gap-3">
+              <span class="rounded-3xl bg-purple-500/10 px-3 py-2 text-xs uppercase tracking-[0.2em] text-purple-200">Completed</span>
+              <div class="rounded-2xl bg-white/5 px-3 py-2 text-xs text-slate-300">E-commerce</div>
+            </div>
+            <h3 class="mt-6 text-xl font-semibold text-white">Trolly Mate</h3>
+            <p class="mt-4 text-slate-400 leading-7">Full-stack marketplace with admin panels, inventory management, secure checkout, and data-driven dashboards for high-impact commerce workflows.</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">Python</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-purple-200">Django</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">MySQL</span>
+            </div>
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a href="https://github.com/KaifHashmi0922/Trolly-Mate-Ecommarce-Plateform-" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-2 text-sm font-semibold text-purple-200 transition hover:bg-purple-500/20"> <i class="fab fa-github"></i> Code</a>
+              <a href="https://github.com/KaifHashmi0922/Trolly-Mate-Ecommarce-Plateform-" target="_blank" class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300 transition hover:bg-white/10"> <i class="fas fa-globe"></i> Live demo</a>
+            </div>
+          </article>
+
+          <article class="reveal rounded-[2rem] border border-white/10 bg-slate-950/95 p-6 transition duration-300 hover:-translate-y-1 hover:border-purple-500/30 hover:shadow-glow">
+            <div class="flex items-center justify-between gap-3">
+              <span class="rounded-3xl bg-purple-500/10 px-3 py-2 text-xs uppercase tracking-[0.2em] text-purple-200">Completed</span>
+              <div class="rounded-2xl bg-white/5 px-3 py-2 text-xs text-slate-300">Finance</div>
+            </div>
+            <h3 class="mt-6 text-xl font-semibold text-white">Banking App</h3>
+            <p class="mt-4 text-slate-400 leading-7">Designed secure transaction flows, account management, and audit-ready logging for a customer-facing banking platform.</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">Python</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-purple-200">Authentication</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">MySQL</span>
+            </div>
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a href="https://github.com/KaifHashmi0922/Banking-Application" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-2 text-sm font-semibold text-purple-200 transition hover:bg-purple-500/20"> <i class="fab fa-github"></i> Code</a>
+              <a href="https://github.com/KaifHashmi0922/Banking-Application" target="_blank" class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300 transition hover:bg-white/10"> <i class="fas fa-globe"></i> Live demo</a>
+            </div>
+          </article>
+
+          <article class="reveal rounded-[2rem] border border-white/10 bg-slate-950/95 p-6 transition duration-300 hover:-translate-y-1 hover:border-purple-500/30 hover:shadow-glow">
+            <div class="flex items-center justify-between gap-3">
+              <span class="rounded-3xl bg-orange-500/10 px-3 py-2 text-xs uppercase tracking-[0.2em] text-orange-300">Ongoing</span>
+              <div class="rounded-2xl bg-white/5 px-3 py-2 text-xs text-slate-300">Marketplace</div>
+            </div>
+            <h3 class="mt-6 text-xl font-semibold text-white">Freelancer Marketplace</h3>
+            <p class="mt-4 text-slate-400 leading-7">Full-stack marketplace platform enabling freelancers and clients to connect, collaborate, and execute projects seamlessly. Features role-based dashboards, real-time bidding system, milestone tracking, and integrated messaging for project communication.</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">React</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-purple-200">FastAPI</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">MongoDB</span>
+            </div>
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a href="https://github.com/KaifHashmi0922/Freelancer-Plateform" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-2 text-sm font-semibold text-purple-200 transition hover:bg-purple-500/20"> <i class="fab fa-github"></i> Code</a>
+              <a href="https://github.com/KaifHashmi0922/Freelancer-Plateform" target="_blank" class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300 transition hover:bg-white/10"> <i class="fas fa-globe"></i> Live demo</a>
+            </div>
+          </article>
+
+          <article class="reveal rounded-[2rem] border border-white/10 bg-slate-950/95 p-6 transition duration-300 hover:-translate-y-1 hover:border-purple-500/30 hover:shadow-glow">
+            <div class="flex items-center justify-between gap-3">
+              <span class="rounded-3xl bg-purple-500/10 px-3 py-2 text-xs uppercase tracking-[0.2em] text-purple-200">Completed</span>
+              <div class="rounded-2xl bg-white/5 px-3 py-2 text-xs text-slate-300">Productivity</div>
+            </div>
+            <h3 class="mt-6 text-xl font-semibold text-white">Task Management System</h3>
+            <p class="mt-4 text-slate-400 leading-7">Interactive task management system with user authentication, project organization, and real-time collaboration features. Supports task creation, status tracking, deadline management, and team communication for improved productivity.</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">Python</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-purple-200">Django</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">React</span>
+            </div>
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a href="https://github.com/KaifHashmi0922/Task-Management-System" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-2 text-sm font-semibold text-purple-200 transition hover:bg-purple-500/20"> <i class="fab fa-github"></i> Code</a>
+              <a href="https://github.com/KaifHashmi0922/Task-Management-System" target="_blank" class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300 transition hover:bg-white/10"> <i class="fas fa-globe"></i> Live demo</a>
+            </div>
+          </article>
+
+          <article class="reveal rounded-[2rem] border border-white/10 bg-slate-950/95 p-6 transition duration-300 hover:-translate-y-1 hover:border-purple-500/30 hover:shadow-glow">
+            <div class="flex items-center justify-between gap-3">
+              <span class="rounded-3xl bg-purple-500/10 px-3 py-2 text-xs uppercase tracking-[0.2em] text-purple-200">Completed</span>
+              <div class="rounded-2xl bg-white/5 px-3 py-2 text-xs text-slate-300">Dashboard</div>
+            </div>
+            <h3 class="mt-6 text-xl font-semibold text-white">Admin Dashboard</h3>
+            <p class="mt-4 text-slate-400 leading-7">Admin control center for Trolly Mate e-commerce platform with real-time sales analytics, user management, inventory tracking, and revenue reporting. Built with Django backend and React frontend for optimal performance and user experience.</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">Python</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-purple-200">Django</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">React</span>
+            </div>
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a href="https://github.com/KaifHashmi0922/Admin-Dashboard" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-2 text-sm font-semibold text-purple-200 transition hover:bg-purple-500/20"> <i class="fab fa-github"></i> Code</a>
+              <a href="https://github.com/KaifHashmi0922/Admin-Dashboard" target="_blank" class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300 transition hover:bg-white/10"> <i class="fas fa-globe"></i> Live demo</a>
+            </div>
+          </article>
+
+          <article class="reveal rounded-[2rem] border border-white/10 bg-slate-950/95 p-6 transition duration-300 hover:-translate-y-1 hover:border-purple-500/30 hover:shadow-glow">
+            <div class="flex items-center justify-between gap-3">
+              <span class="rounded-3xl bg-orange-500/10 px-3 py-2 text-xs uppercase tracking-[0.2em] text-orange-300">Ongoing</span>
+              <div class="rounded-2xl bg-white/5 px-3 py-2 text-xs text-slate-300">Analytics</div>
+            </div>
+            <h3 class="mt-6 text-xl font-semibold text-white">Data Analytics Dashboard</h3>
+            <p class="mt-4 text-slate-400 leading-7">Advanced data analytics dashboard for business intelligence and decision-making. Processes and visualizes product inventory data and company metrics with interactive charts, trend analysis, and export capabilities.</p>
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">Python</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-purple-200">Pandas</span>
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">Matplotlib</span>
+            </div>
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a href="https://github.com/KaifHashmi0922/Data-Analytics-Dashboard-" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-2 text-sm font-semibold text-purple-200 transition hover:bg-purple-500/20"> <i class="fab fa-github"></i> Code</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="px-4 py-24">
+      <div class="mx-auto max-w-7xl">
+        <div class="text-center">
+          <p class="text-sm uppercase tracking-[0.24em] text-purple-300">Skills</p>
+          <h2 class="section-title text-3xl font-semibold text-white sm:text-4xl">Proven technical expertise across the stack.</h2>
+          <p class="mx-auto mt-5 max-w-2xl text-base leading-8 text-slate-400">Mastery of modern web technologies, from server-side architecture and API design to frontend optimization. Skilled in database optimization, system design, and delivering scalable, production-ready applications.</p>
+        </div>
+        <div class="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-5">
+          <div class="reveal rounded-[2rem] border border-white/10 bg-slate-950/95 p-6">
+            <div class="flex items-center gap-3 text-purple-300"><i class="fas fa-server text-lg"></i><span class="text-lg font-semibold text-white">Backend</span></div>
+            <ul class="mt-6 space-y-3 text-slate-300">
+              <li>Python</li>
+              <li>Django</li>
+              <li>FastAPI</li>
+              <li>REST APIs</li>
+              <li>API Design</li>
+            </ul>
+            <div class="mt-6 space-y-4">
+              <div>
+                <div class="flex justify-between text-xs text-slate-400"><span>API Design</span><span>92%</span></div>
+                <div class="mt-2 h-2 overflow-hidden rounded-full bg-white/10"><div class="h-full w-[92%] rounded-full bg-purple-500"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs text-slate-400"><span>Data Modeling</span><span>88%</span></div>
+                <div class="mt-2 h-2 overflow-hidden rounded-full bg-white/10"><div class="h-full w-[88%] rounded-full bg-purple-500"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="reveal rounded-[2rem] border border-white/10 bg-slate-950/95 p-6">
+            <div class="flex items-center gap-3 text-purple-300"><i class="fas fa-paint-brush text-lg"></i><span class="text-lg font-semibold text-white">Frontend</span></div>
+            <ul class="mt-6 space-y-3 text-slate-300">
+              <li>React</li>
+              <li>JavaScript</li>
+              <li>HTML & CSS</li>
+              <li>Responsive UI</li>
+            </ul>
+            <div class="mt-6 space-y-4">
+              <div>
+                <div class="flex justify-between text-xs text-slate-400"><span>UI Delivery</span><span>90%</span></div>
+                <div class="mt-2 h-2 overflow-hidden rounded-full bg-white/10"><div class="h-full w-[90%] rounded-full bg-purple-500"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs text-slate-400"><span>Performance</span><span>82%</span></div>
+                <div class="mt-2 h-2 overflow-hidden rounded-full bg-white/10"><div class="h-full w-[82%] rounded-full bg-purple-500"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="reveal rounded-[2rem] border border-white/10 bg-slate-950/95 p-6">
+            <div class="flex items-center gap-3 text-purple-300"><i class="fas fa-database text-lg"></i><span class="text-lg font-semibold text-white">Databases</span></div>
+            <ul class="mt-6 space-y-3 text-slate-300">
+              <li>MySQL</li>
+              <li>PostgreSQL</li>
+              <li>MongoDB</li>
+              <li>Database Design</li>
+              <li>SQL Optimization</li>
+              <li>Query Performance</li>
+            </ul>
+            <div class="mt-6 space-y-4">
+              <div>
+                <div class="flex justify-between text-xs text-slate-400"><span>Optimization</span><span>87%</span></div>
+                <div class="mt-2 h-2 overflow-hidden rounded-full bg-white/10"><div class="h-full w-[87%] rounded-full bg-purple-500"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs text-slate-400"><span>Database Design</span><span>83%</span></div>
+                <div class="mt-2 h-2 overflow-hidden rounded-full bg-white/10"><div class="h-full w-[83%] rounded-full bg-purple-500"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="reveal rounded-[2rem] border border-white/10 bg-slate-950/95 p-6">
+            <div class="flex items-center gap-3 text-purple-300"><i class="fas fa-code text-lg"></i><span class="text-lg font-semibold text-white">Languages</span></div>
+            <ul class="mt-6 space-y-3 text-slate-300">
+              <li>Java</li>
+              <li>C</li>
+              <li>C++</li>
+              <li>Python</li>
+              <li>JavaScript</li>
+            </ul>
+            <div class="mt-6 space-y-4">
+              <div>
+                <div class="flex justify-between text-xs text-slate-400"><span>Java</span><span>85%</span></div>
+                <div class="mt-2 h-2 overflow-hidden rounded-full bg-white/10"><div class="h-full w-[85%] rounded-full bg-purple-500"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs text-slate-400"><span>C/C++</span><span>80%</span></div>
+                <div class="mt-2 h-2 overflow-hidden rounded-full bg-white/10"><div class="h-full w-[80%] rounded-full bg-purple-500"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="reveal rounded-[2rem] border border-white/10 bg-slate-950/95 p-6">
+            <div class="flex items-center gap-3 text-purple-300"><i class="fas fa-cogs text-lg"></i><span class="text-lg font-semibold text-white">Systems</span></div>
+            <ul class="mt-6 space-y-3 text-slate-300">
+              <li>Linux</li>
+              <li>Git</li>
+              <li>Docker</li>
+              <li>AWS</li>
+              <li>Postman</li>
+            </ul>
+            <div class="mt-6 space-y-4">
+              <div>
+                <div class="flex justify-between text-xs text-slate-400"><span>Linux</span><span>78%</span></div>
+                <div class="mt-2 h-2 overflow-hidden rounded-full bg-white/10"><div class="h-full w-[78%] rounded-full bg-purple-500"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs text-slate-400"><span>DevOps</span><span>74%</span></div>
+                <div class="mt-2 h-2 overflow-hidden rounded-full bg-white/10"><div class="h-full w-[74%] rounded-full bg-purple-500"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 px-4 py-24 relative overflow-hidden section-bg-enhanced">
+      <!-- Enhanced background effects -->
+      <div class="absolute inset-0 bg-gradient-to-r from-purple-500/6 via-transparent to-violet-500/6"></div>
+      <div class="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-purple-500/12 to-violet-500/8 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-violet-500/10 to-purple-500/6 rounded-full blur-3xl"></div>
+      <div class="absolute top-1/4 left-1/3 w-80 h-80 bg-gradient-to-r from-purple-500/4 to-violet-500/3 rounded-full blur-2xl"></div>
+
+      <div class="mx-auto max-w-7xl relative">
+        <div class="text-center mb-16">
+          <p class="text-sm uppercase tracking-[0.24em] text-purple-300">Contact</p>
+          <h2 class="section-title text-3xl font-bold text-white sm:text-4xl lg:text-5xl bg-gradient-to-r from-white via-purple-100 to-purple-200 bg-clip-text text-transparent">Let's build something meaningful.</h2>
+          <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-300">Reach out for collaborations, full-time opportunities, or product-focused engineering work. I'm always excited to connect with like-minded professionals and explore new possibilities.</p>
+        </div>
+
+        <div class="grid gap-12 lg:grid-cols-[1fr_1.2fr] items-start">
+          <!-- Contact Info -->
+          <div class="space-y-8">
+            <div class="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-slate-950/95 to-slate-900/90 p-8 shadow-2xl transition-all duration-500 hover:border-purple-500/30 hover:shadow-glow">
+              <!-- Background gradient effect -->
+              <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+              <div class="relative">
+                <div class="flex items-center gap-4 mb-8">
+                  <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500/20 to-purple-400/10 text-purple-300 shadow-lg">
+                    <i class="fas fa-envelope text-2xl"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-2xl font-bold text-white">Get In Touch</h3>
+                    <p class="text-purple-300">Let's start a conversation</p>
+                  </div>
+                </div>
+
+                <div class="space-y-6">
+                  <div class="group/item flex items-center gap-4 p-4 rounded-2xl border border-white/5 bg-white/5 hover:border-purple-500/20 hover:bg-purple-500/5 transition-all duration-300">
+                    <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-500/10 text-purple-300 group-hover/item:bg-purple-500/20 transition-colors">
+                      <i class="fas fa-envelope text-lg"></i>
+                    </div>
+                    <div class="flex-1">
+                      <p class="text-sm uppercase tracking-[0.1em] text-slate-400">Email</p>
+                      <p class="font-semibold text-white text-lg">kaifhashmi0922@gmail.com</p>
+                    </div>
+                  </div>
+
+                  <div class="group/item flex items-center gap-4 p-4 rounded-2xl border border-white/5 bg-white/5 hover:border-purple-500/20 hover:bg-purple-500/5 transition-all duration-300">
+                    <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-500/10 text-purple-300 group-hover/item:bg-purple-500/20 transition-colors">
+                      <i class="fas fa-phone text-lg"></i>
+                    </div>
+                    <div class="flex-1">
+                      <p class="text-sm uppercase tracking-[0.1em] text-slate-400">Phone</p>
+                      <p class="font-semibold text-white text-lg">+91 7379236510</p>
+                    </div>
+                  </div>
+
+                  <div class="group/item flex items-center gap-4 p-4 rounded-2xl border border-white/5 bg-white/5 hover:border-purple-500/20 hover:bg-purple-500/5 transition-all duration-300">
+                    <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-500/10 text-purple-300 group-hover/item:bg-purple-500/20 transition-colors">
+                      <i class="fas fa-map-marker-alt text-lg"></i>
+                    </div>
+                    <div class="flex-1">
+                      <p class="text-sm uppercase tracking-[0.1em] text-slate-400">Location</p>
+                      <p class="font-semibold text-white text-lg">Noida, Delhi, India</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-white/10">
+                  <p class="text-sm text-slate-400 mb-4">Connect with me</p>
+                  <div class="flex flex-wrap gap-4">
+                    <a href="https://github.com/KaifHashmi0922" target="_blank" rel="noopener" class="group/social inline-flex items-center justify-center w-12 h-12 rounded-xl border border-white/10 bg-white/5 text-slate-300 hover:border-purple-500/30 hover:bg-purple-500/10 hover:text-purple-200 transition-all duration-300">
+                      <i class="fab fa-github text-lg"></i>
+                    </a>
+                    <a href="http://linkedin.com/in/kaif-hashmi-045a8333a" target="_blank" rel="noopener" class="group/social inline-flex items-center justify-center w-12 h-12 rounded-xl border border-white/10 bg-white/5 text-slate-300 hover:border-purple-500/30 hover:bg-purple-500/10 hover:text-purple-200 transition-all duration-300">
+                      <i class="fab fa-linkedin text-lg"></i>
+                    </a>
+                    <a href="https://leetcode.com/u/Hs_KaiF/" target="_blank" rel="noopener" class="group/social inline-flex items-center justify-center w-12 h-12 rounded-xl border border-white/10 bg-white/5 text-slate-300 hover:border-purple-500/30 hover:bg-purple-500/10 hover:text-purple-200 transition-all duration-300">
+                      <i class="fas fa-code text-lg"></i>
+                    </a>
+                    <a href="mailto:kaifhashmi0922@gmail.com" class="group/social inline-flex items-center justify-center w-12 h-12 rounded-xl border border-white/10 bg-white/5 text-slate-300 hover:border-purple-500/30 hover:bg-purple-500/10 hover:text-purple-200 transition-all duration-300">
+                      <i class="fas fa-envelope text-lg"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Availability Status -->
+            <div class="group relative overflow-hidden rounded-[2rem] border border-purple-500/20 bg-gradient-to-br from-purple-500/5 to-purple-400/5 p-6 shadow-lg">
+              <div class="flex items-center gap-4">
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-500/20 text-purple-300">
+                  <i class="fas fa-circle text-sm animate-pulse"></i>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-white">Available for Projects</h4>
+                  <p class="text-sm text-purple-200">Open to new opportunities</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Form -->
+          <div class="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-slate-950/95 to-slate-900/90 p-8 shadow-2xl">
+            <!-- Background gradient effect -->
+            <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+            <div class="relative">
+              <div class="flex items-center gap-4 mb-8">
+                <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500/20 to-purple-400/10 text-purple-300 shadow-lg">
+                  <i class="fas fa-paper-plane text-2xl"></i>
+                </div>
+                <div>
+                  <h3 class="text-2xl font-bold text-white">Send a Message</h3>
+                  <p class="text-purple-300">I'd love to hear from you</p>
+                </div>
+              </div>
+
+              <div id="successMessage" class="hidden mb-6 rounded-2xl border border-purple-500/20 bg-purple-500/10 px-6 py-4 text-purple-100">
+                <div class="flex items-center gap-3">
+                  <i class="fas fa-check-circle text-lg"></i>
+                  <span class="font-medium">Message sent successfully — I'll reply within 24 hours.</span>
+                </div>
+              </div>
+
+              <form id="contactForm" class="space-y-6">
+                <div class="grid gap-6 sm:grid-cols-2">
+                  <div class="space-y-2">
+                    <label class="block text-sm font-medium text-slate-300">Name</label>
+                    <input id="name" type="text" required class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 focus:border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-500/20 transition-all duration-300" placeholder="Your name" />
+                  </div>
+                  <div class="space-y-2">
+                    <label class="block text-sm font-medium text-slate-300">Email</label>
+                    <input id="email" type="email" required class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 focus:border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-500/20 transition-all duration-300" placeholder="name@example.com" />
+                  </div>
+                </div>
+
+                <div class="space-y-2">
+                  <label class="block text-sm font-medium text-slate-300">Subject</label>
+                  <input id="subject" type="text" required class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 focus:border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-500/20 transition-all duration-300" placeholder="What's this about?" />
+                </div>
+
+                <div class="space-y-2">
+                  <label class="block text-sm font-medium text-slate-300">Message</label>
+                  <textarea id="message" rows="6" required class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-500 focus:border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-500/20 transition-all duration-300 resize-none" placeholder="Tell me about your project or opportunity..."></textarea>
+                </div>
+
+                <button type="submit" class="group/btn w-full inline-flex items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-purple-500 to-purple-400 px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-glow hover:-translate-y-0.5 hover:from-purple-400 hover:to-purple-300">
+                  <span>Send Message</span>
+                  <i class="fas fa-paper-plane group-hover/btn:translate-x-1 transition-transform duration-300"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-white/10 bg-slate-950/95 px-4 py-10 text-center text-slate-400">
+    <div class="mx-auto flex max-w-7xl flex-col items-center gap-4 sm:flex-row sm:justify-between">
+      <p>© 2025 Kaif Hashmi — Full-Stack Developer</p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="https://github.com/KaifHashmi0922" target="_blank" rel="noopener" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-200 transition hover:bg-purple-500/15"><i class="fab fa-github"></i></a>
+        <a href="http://linkedin.com/in/kaif-hashmi-045a8333a" target="_blank" rel="noopener" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-200 transition hover:bg-purple-500/15"><i class="fab fa-linkedin"></i></a>
+        <a href="mailto:kaifhashmi0922@gmail.com" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-200 transition hover:bg-purple-500/15"><i class="fas fa-envelope"></i></a>
+        <a href="https://leetcode.com/u/Hs_KaiF/" target="_blank" rel="noopener" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-200 transition hover:bg-purple-500/15"><i class="fas fa-code"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu = document.getElementById('closeMenu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    function toggleMobileMenu() {
+      mobileMenu.classList.toggle('hidden');
+    }
+
+    menuToggle.addEventListener('click', toggleMobileMenu);
+    closeMenu.addEventListener('click', toggleMobileMenu);
+    mobileLinks.forEach(link => link.addEventListener('click', toggleMobileMenu));
+
+    const form = document.getElementById('contactForm');
+    const successMessage = document.getElementById('successMessage');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      successMessage.classList.remove('hidden');
+      form.reset();
+      setTimeout(() => successMessage.classList.add('hidden'), 5000);
+    });
+
+    const sections = document.querySelectorAll('section[id]');
+    const offset = 72;
+
+    window.addEventListener('scroll', () => {
+      const scrollPosition = window.scrollY + offset;
+      sections.forEach(section => {
+        const top = section.offsetTop;
+        const bottom = top + section.offsetHeight;
+        const id = section.getAttribute('id');
+        const link = document.querySelector(`.nav-link[href="#${id}"]`);
+        if (scrollPosition >= top && scrollPosition < bottom) {
+          link?.classList.add('text-white');
+          link?.classList.remove('text-slate-300');
+        } else {
+          link?.classList.remove('text-white');
+          link?.classList.add('text-slate-300');
+        }
+      });
+    });
+
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    revealElements.forEach(element => observer.observe(element));
+  </script>
 </body>
 </html>
